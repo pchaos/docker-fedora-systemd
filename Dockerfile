@@ -1,4 +1,4 @@
-FROM fedora:39
+FROM fedora:37
 
 LABEL maintainer="Robert de Bock <robert@meinit.nl>"
 LABEL build_date="2023-11-09"
@@ -6,7 +6,7 @@ LABEL build_date="2023-11-09"
 ENV container=docker
 
 # Enable systemd.
-RUN dnf -y install systemd && dnf clean all && \
+RUN dnf update && dnf -y install systemd vim wget curl zip tar && dnf clean all && \
   (cd /lib/systemd/system/sysinit.target.wants/ ; for i in * ; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i ; done) ; \
   rm -f /lib/systemd/system/multi-user.target.wants/* ;\
   rm -f /etc/systemd/system/*.wants/* ;\
